@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <style>
+        body {
+            background-color: #23272b;
+            color: #eee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .success-container {
+            text-align: center;
+            background: #2c2f33;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+        h1 {
+            color: #FFCC00;
+        }
+        p {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your payment. Your transaction has been completed.</p>
+        <a href="{{ url_for('dashboard') }}" style="color: #FFCC00;">Return to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Client</title>
+    <style>
+        body { font-family: Arial; background: #f4f4f4; padding: 30px; }
+        .form-container {
+            width: 400px; margin: auto; background: white; padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input, textarea {
+            width: 100%; padding: 10px; margin-bottom: 10px;
+        }
+        button {
+            background: #007bff; color: white; padding: 10px 20px; border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New Client</h2>
+        <form method="POST">
+            <input type="text" name="company_name" placeholder="Company Name" required>
+            <input type="text" name="client_name" placeholder="Client Name" required>
+            <textarea name="address" placeholder="Address" required></textarea>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="contact_number" placeholder="Contact Number" required>
+            <button type="submit">Add Client</button>
+        </form>
+        <br>
+        <a href="{{ url_for('show_client') }}">← Back to Client List</a>
+    </div>
+</body>
+</html>

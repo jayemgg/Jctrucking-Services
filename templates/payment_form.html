@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payment Form</title>
+    <style>
+        .center { text-align: center; }
+        .container { max-width: 800px; margin: auto; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { padding: 10px; border: 1px solid #ddd; }
+        input, select { width: 100%; padding: 8px; }
+        button.pay-btn { margin-top: 15px; padding: 10px 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="payment" class="container pt-4" style="border: 1px solid red; height: 1200px;">
+        <h1 class="center">Payment</h1>
+
+        <!-- Trip Info Table -->
+        <table style="margin-bottom: 30px;">
+            <tr><th class="center" colspan="4">Trip Info</th></tr>
+            <tr>
+                <th style="width: 20%;">Route</th>
+                <th style="width: 20%;">Trip Date</th>
+                <th style="width: 20%;">Plate Number</th>
+                <th style="width: 20%;">Driver Name</th>
+            </tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+        </table>
+
+        <!-- Payment Form -->
+        <form id="payment-form" action="/submit-payment" method="POST">
+            <table>
+                <tr><th class="center" colspan="4">Payment Details</th></tr>
+                <tr>
+                    <td>Total Amount (PHP)</td>
+                    <td colspan="3"><input type="number" id="total" name="total" oninput="calculateBalance()" placeholder="Enter total amount" required></td>
+                </tr>
+                <tr>
+                    <td>Amount Paid</td>
+                    <td colspan="3"><input type="number" id="paid" name="paid" oninput="calculateBalance()" placeholder="Enter paid amount" required></td>
+                </tr>
+                <tr>
+                    <td>Remaining Balance</td>
+                    <td colspan="3"><input type="number" id="balance" name="balance" readonly></td>
+                </tr>
+                <tr>
+                    <td>Payment Method</td>
+                    <td colspan="3">
+                        <select name="payment_method" id="payment_method">
+                            <option value="cash">Cash</option>
+                            <option value="gcash">GCash</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Payment Date</td>
+                    <td colspan="3"><input type="date" name="payment_date" required></td>
+                </tr>
+                <tr>
+                    <td>Receipt/Reference No.</td>
+                    <td colspan="3"><input type="text" name="receipt" placeholder="Enter receipt or reference number" required></td>
+                </tr>
+            </table>
+
+            <!-- Status and Action Table -->
+            <table style="margin-top: 30px;">
+                <tr><th class="center" colspan="4">Status</th></tr>
+                <tr>
+                    <td>Payment Status</td>
+                    <td colspan="3">
+                        <select name="payment_status">
+                            <option>Pending</option>
+                            <option>Partially Paid</option>
+                            <option>Paid</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Remarks</td>
+                    <td colspan="3"><input type="text" name="remarks" placeholder="Enter optional note"></td>
+                </tr>
+                <tr><th class="center" colspan="4">Action (Admin Only)</th></tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        <button type="submit">Approve Payment</button>
+                        <button type="button">Mark as Paid</button>
+                        <button type="button">Print Receipt</button>
+                        <button type="button">Send Invoice</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <!-- PayMongo GCash Button -->
+        <button class="pay-btn" onclick="payWithGCash()">Pay with GCash (PayMongo)</button>
+    </div>
+
+    <script>
+        function calculateBalance() {
+            const total = parseFloat(document.getElementById("total").value) || 0;
+            const paid = parseFloat(document.getElementById("paid").value) || 0;
+            const balance = total - paid;
+            document.getElementById("balance").value = balance.toFixed(2);
+        }
+
+        function payWithGCash() {
+            const amountInput = document.getElementById("total");
+            if (!amountInput.value || isNaN(amountInput.value) || amountInput.value <= 0) {
+                alert("Please enter a valid total amount.");
+                return;
+            }
+            const amountPHP = parseFloat(amountInput.value);
+            const amountCentavos = Math.round(amountPHP * 100);
+
+            fetch('/create_gcash_payment', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({amount: amountCentavos})
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.redirect_url) {
+                    window.location.href = data.redirect_url;  // Redirect to PayMongo checkout
+                } else {
+                    alert("Error: " + JSON.stringify(data));
+                }
+            })
+            .catch(err => alert("Error: " + err));
+        }
+    </script>
+</body>
+</html>
+    

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Payment Page</title>
+<style>
+    body {
+        background-color: #23272b;
+        color: #eee;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .payment-container {
+        background: #2c2f33;
+        border-radius: 12px;
+        padding: 40px 30px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        text-align: center;
+    }
+    h1 {
+        color: #FFCC00;
+        margin-bottom: 25px;
+        font-weight: 700;
+        font-size: 2rem;
+    }
+    form {
+        text-align: center;
+    }
+    .gcash-btn {
+        background-color: #00a544;
+        color: white;
+        font-weight: bold;
+        padding: 15px 0;
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.3rem;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+    .gcash-btn:hover {
+        background-color: #008835;
+    }
+    .info-text {
+        font-size: 1rem;
+        color: #999;
+        margin-top: 25px;
+        text-align: center;
+    }
+    .qr-section {
+        margin: 30px 0 10px 0;
+        text-align: center;
+    }
+    .qr-section img {
+        width: 180px;
+        height: 180px;
+        border-radius: 10px;
+        border: 2px solid #00a544;
+        background: #fff;
+        margin-bottom: 10px;
+    }
+    .qr-section p {
+        color: #eee;
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+</style>
+<script>
+    // After 10 seconds (simulate scan), redirect to homepage
+    function redirectAfterScan() {
+        setTimeout(function() {
+            window.location.href = "{{ url_for('dashboard') }}";
+        }, 10000); // 10 seconds
+    }
+</script>
+</head>
+<body onload="redirectAfterScan()">
+    <div class="payment-container">
+        <h1>Pay with GCash</h1>
+        <form method="post" action="{{ url_for('gcash_pay') }}">
+            <button type="submit" class="gcash-btn">
+                <img src="{{ url_for('static', filename='gcashlogo.png') }}" alt="GCash" style="height: 28px;" />
+                Pay with GCash
+            </button>
+        </form>
+        <div class="qr-section">
+            <img src="{{ url_for('static', filename='gcash.png') }}" alt="GCash QR Code" />
+            <p>Or scan this QR code with your GCash app to pay.</p>
+            <p class="info-text">
+                After scanning and paying, you will be redirected to the homepage automatically.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

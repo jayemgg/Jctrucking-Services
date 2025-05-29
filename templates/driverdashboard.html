@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1b1e27;
+            padding: 10px 20px;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .company-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: red;
+        }
+        .section {
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
+        .active-section {
+            display: block;
+        }
+        .tracker-section {
+            margin: 0; padding: 0;
+        }
+        .tracker-section iframe {
+            width: 100vw;
+            height: 80vh;
+            border: none;
+        }
+        .history-section {
+            background-color: #1e1e2f;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            max-width: 100%;
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+        .history-section h2 {
+            color: #FFCC00;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+        table.transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2c2f33;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .transaction-table thead {
+            background-color: #FFCC00;
+            color: #000;
+        }
+        .transaction-table th,
+        .transaction-table td {
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .transaction-table tbody tr:nth-child(even) {
+            background-color: #3a3f47;
+        }
+        .transaction-table tbody tr:hover {
+            background-color: #444b54;
+        }
+        .no-data {
+            color: #fff;
+            margin-top: 15px;
+        }
+        .salary-section {
+            background-color: #23272b;
+            color: #FFCC00;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 40px auto 0 auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            font-size: 22px;
+            text-align: center;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+        .logout-btn:hover {
+            background-color: #b52a37;
+        }
+    </style>
+    <script>
+        function showSection(section) {
+            document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active-section"));
+            document.querySelectorAll("." + section).forEach(sec => sec.classList.add("active-section"));
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='trucklogo.png') }}" alt="Truck Logo">
+            <div>
+                <div class="company-name" style="font-size: 32px; font-family: 'League Spartan', sans-serif;">JCTrucking Company</div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showSection('tracker-section')">TRACKER</a></li>
+            <li><a href="#" onclick="showSection('history-section')">TRIPS ASSIGN</a></li>
+            <li><a href="#" onclick="showSection('salary-section')">SALARY</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout-btn">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="section tracker-section active-section">
+        <iframe src="https://pro.sinotrack.com/" title="GPS"></iframe>
+    </div>
+
+    <div class="section history-section">
+        <h2>Trips Assign</h2>
+        {% if trips and trips|length > 0 %}
+        <table class="transaction-table" id="transaction-table">
+            <thead>
+                <tr>
+                    <th>Pickup</th>
+                    <th>Drop-off</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in trips %}
+                <tr>
+                    <td>{{ trip.pickup }}</td>
+                    <td>{{ trip.dropoff }}</td>
+                    <td>{{ trip.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-data">No trips assigned.</p>
+        {% endif %}
+    </div>
+
+    <div class="section salary-section">
+        <h2 style="color:#FFCC00;">Salary</h2>
+        {% if salary %}
+            <p>Total Salary: <span style="color:#fff;">₱{{ salary }}</span></p>
+        {% else %}
+            <p>No salary record found.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        // Set TRACKER as default visible section
+        document.addEventListener("DOMContentLoaded", function() {
+            showSection('tracker-section');
+        });
+    </script>
+</body>
+</html>

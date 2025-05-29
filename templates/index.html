@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web App Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            min-width: 100vw;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            min-width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            transition: background-image 1s;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            width: 40vw;
+            height: 80vh;
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-section {
+            flex: 0 1 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin: 32px;
+            min-width: 320px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-section h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn-login:hover {
+            background-color: #0056b3;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .modal button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal button:hover {
+            background-color: #0056b3;
+        }
+        .form-section a {
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .form-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section" style="flex: 1 1 100%;">
+            <h1>Welcome</h1>
+            <form id="auth-form" action="{{ url_for('login') }}" method="post">
+                <input type="text" name="username" placeholder="Username" class="input-field" required />
+                <input type="password" name="password" placeholder="Password" class="input-field" required />
+                <input type="submit" value="Login" class="btn btn-login" />
+            </form>
+            <a href="#" onclick="openModal('adminLoginModal')">You're the admin?</a>
+            <br />
+            <a href="{{ url_for('register') }}">Don't have an account? Register</a>
+           
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm" action="{{ url_for('login') }}" method="post">
+                <input type="text" name="username" placeholder="Username" class="input-field" required />
+                <input type="password" name="password" placeholder="Password" class="input-field" required />
+                <button type="submit" class="btn-login">Login</button>
+                <button type="button" class="btn-login" onclick="closeModal('adminLoginModal')">Close</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.querySelector(`#${modalId} input`).focus();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            let adminLoginModal = document.getElementById("adminLoginModal");
+            if (event.target == adminLoginModal) {
+                adminLoginModal.style.display = "none";
+            }
+        };
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeModal("adminLoginModal");
+            }
+        });
+
+        // List of background image sets (arrays of [main, overlay])
+        const backgrounds = [
+            [
+                "{{ url_for('static', filename='indexb.png') }}",
+                "{{ url_for('static', filename='homedashboard.png') }}"
+            ],
+            [
+                "{{ url_for('static', filename='truck1.png') }}",
+                "{{ url_for('static', filename='truck1.png') }}"
+            ],
+            [
+                "{{ url_for('static', filename='truck2.png') }}",
+                "{{ url_for('static', filename='truck2.png') }}"
+            ]
+        ];
+
+        let bgIndex = 0;
+        function setBackground() {
+            const main = backgrounds[bgIndex][0];
+            const overlay = backgrounds[bgIndex][1];
+            document.body.style.backgroundImage = `url('${main}'), url('${overlay}')`;
+            document.body.style.backgroundPosition = "center center, left bottom";
+            document.body.style.backgroundRepeat = "no-repeat, no-repeat";
+            document.body.style.backgroundSize = "cover, cover";
+            document.body.style.backgroundColor = "#f0f2f5";
+        }
+
+        setInterval(() => {
+            bgIndex = (bgIndex + 1) % backgrounds.length;
+            setBackground();
+        }, 3000);
+
+        window.addEventListener("DOMContentLoaded", setBackground);
+    </script>
+</body>
+</html>

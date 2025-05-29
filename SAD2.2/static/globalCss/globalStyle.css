@@ -1,0 +1,303 @@
+/* DESKTOP VIEW */
+@media screen and (min-width: 1024px) {
+    .logo_icon {
+        height: 40px;
+        width: 40px;
+    }
+
+    .logo_title {
+        color: #ffffff;
+        letter-spacing: 0.07em;
+        font-size: 1.25rem;
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+
+    .logo_subtitle {
+        letter-spacing: 0.04em;
+        margin-top: 2px;
+        font-size: 13px;
+        color: rgb(190, 190, 190);
+        font-weight: 100;
+    }
+    
+
+    .currentPage {
+        font-weight: bold;
+        box-shadow: inset 0 -2px 0 0 red;
+    }
+
+    .carouselImg {
+        height: 88vh;
+    }
+
+    .chartLogo {
+        height: 60px;
+        width: 60px;
+        float: right;
+    }
+
+    .addTruckForm {
+        width: 50%;
+        margin: auto;
+    }
+}
+
+/* TABLET VIEW */
+@media screen and (max-width: 768px) {
+    .logo_icon {
+        height: 30px;
+        width: 30px;
+    }
+
+    .logo_title {
+        color: #ffffff;
+        letter-spacing: 0.07em;
+        font-size: 1.05rem;
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+
+    .logo_subtitle {
+        letter-spacing: 0.04em;
+        margin-top: 2px;
+        font-size: 11px;
+        color: rgb(190, 190, 190);
+        font-weight: 100;
+    }
+    
+    .carouselImg {
+        height: 70vw;
+    }
+
+    
+    .chartLogo {
+        height: 50px;
+        width: 50px;
+        float: right;
+    }
+
+    
+    .addTruckForm {
+        width: 90%;
+        margin: auto;
+    }
+}
+
+/* MOBILE VIEW */
+@media screen and (max-width: 425px) {
+    .logo_icon {
+        height: 25px;
+        width: 25px;
+    }
+
+    .logo_title {
+        color: #ffffff;
+        letter-spacing: 0.07em;
+        font-size: 0.85rem;
+        margin-bottom: 3px;
+        font-weight: bold;
+    }
+
+    .logo_subtitle {
+        letter-spacing: 0.04em;
+        margin-top: 2px;
+        font-size: 9px;
+        color: rgb(190, 190, 190);
+        font-weight: 100;
+    }
+    
+    .carouselImg {
+        height: 50vh;
+    }
+
+    
+    .chartLogo {
+        height: 50px;
+        width: 50px;
+        float: right;
+    }
+}
+
+nav {
+    padding: 15px 0 15px 0 !important;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+th {
+    color: #acacac !important;
+}
+
+td {
+    font-size: 14px;
+}
+
+.dropdown-menu.show {
+    left: -80px;
+    top: 50px;
+}
+
+.onHover:hover {
+    font-weight: bold;
+    color: #ffffff;
+    box-shadow: inset 0 -2px 0 0 red;
+}
+
+.onHoverDropdown:hover {
+    background-color: red;
+    color: #ffffff;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 30px;
+}
+
+.bgAlternative {
+    background-color: rgb(45, 45, 45);
+}
+
+.form-label {
+    color: gray;
+}
+
+.card-body {
+    color: #ffffff;
+}
+
+.card-text {
+    letter-spacing: 1px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.center {
+    text-align: center;
+}
+
+
+table {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #1c1c1c;
+    color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #333;
+    text-align: left;
+    padding: 12px 16px;
+}
+
+th {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+tr:hover {
+    background-color: #3a3a3a;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+}
+
+
+  .receipt {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+  }
+  .receipt h2 {
+    text-align: center;
+  }
+  .receipt .details {
+    margin-bottom: 10px;
+  }
+  .receipt .details p {
+    margin: 5px 0;
+  }
+  .receipt .total {
+    font-weight: bold;
+    text-align: right;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+    
+    .receipt {
+        width: 300px;
+        border: 1px solid #000;
+        padding: 15px;
+        margin: 20px auto;
+        display: none; /* Hidden until Print Receipt is clicked */
+        background-color: black; /* Set background color to black */
+        color: white; /* Set text color to white for readability */
+    }
+    .receipt h3 {
+        text-align: center;
+        color: white; /* Center align heading and set text color */
+    }
+    .receipt p {
+        margin: 5px 0;
+        color: white; /* Set text color for paragraph elements */
+    }
+   
+    .gps-frame {
+        width: 100%;
+        height: 600px;
+        border: none;
+    }
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+
+body {
+  overflow: hidden;
+  display: none;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}

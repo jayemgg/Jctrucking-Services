@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='globalCss/globalStyle.css' )}}">
+    <script type="text/javascript" src="{{ url_for('static', filename='globalElement/navbar.js' )}}"></script>
+</head>
+<body>
+    <navbar-component></navbar-component>
+    {% block body %}
+    <!-- <div class="dashboard-container">
+        <h1>Welcome to the Admin Dashboard, {{ username }}!</h1>
+        
+        <div class="dashboard-buttons">
+            <a href="/add-truck">Add a Truck</a>
+            <a href="/Show-Client">Show Client</a>
+            <a href="/tracker">Tracker</a>
+            <a href="/staff-driver">Staff/Driver Management</a>
+        </div>
+    </div> -->
+    
+    <div id="dashboard" class="container pt-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title display-4 fw-bold">
+                            10 <img src="../static/logo/pending.svg" alt="logo" class="chartLogo">
+                        </h5>
+                        <hr class="mb-1">
+                        <p class="card-text">Pending</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <h5 class="card-title display-4 fw-bold">
+                            30 <img src="../static/logo/progress.svg" alt="logo" class="chartLogo">
+                        </h5>
+                        <hr class="mb-1">
+                        <p class="card-text">In Progress</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title display-4 fw-bold">
+                            20 <img src="../static/logo/done.svg" alt="logo" class="chartLogo">
+                        </h5>
+                        <hr class="mb-1">
+                        <p class="card-text">Done</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-4">
+            <table class="table table-striped table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Description</th>
+                        <th>Routes</th>
+                        <th>Total Payment</th>
+                        <th>Remaining Balance</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    
+                    </tr>    
+                </thead>
+                <tbody>
+                    <!-- Sample Rows -->
+                    <tr>
+                        <td>Jeicer Dipad</td>
+                        <td>This is my description...</td>
+                        <td>Bocaue to Baguio</td>
+                        <td>100</td>
+                        <td>900</td>
+                        <td>04/10/2024</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn bg-transparent p-0 nav-link" data-bs-toggle="dropdown">
+                                    <img src="../static/logo/more_vert.svg" alt="logo" height="20" width="20">
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item onHoverDropdown" href="#">Make Action</a></li>
+                                    <li><a class="dropdown-item onHoverDropdown" href="#">Disapprove</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jeicer Dipad</td>
+                        <td>This is my description...</td>
+                        <td>Bocaue to Baguio</td>
+                        <td>100</td>
+                        <td>900</td>
+                        <td>04/10/2024</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn bg-transparent p-0 nav-link" data-bs-toggle="dropdown">
+                                    <img src="../static/logo/more_vert.svg" alt="logo" height="20" width="20">
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item onHoverDropdown" href="#">Make Action</a></li>
+                                    <li><a class="dropdown-item onHoverDropdown" href="#">Disapprove</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Jeicer Dipad</td>
+                        <td>This is my description...</td>
+                        <td>Bocaue to Baguio</td>
+                        <td>100</td>
+                        <td>900</td>
+                        <td>04/10/2024</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn bg-transparent p-0 nav-link" data-bs-toggle="dropdown">
+                                    <img src="../static/logo/more_vert.svg" alt="logo" height="20" width="20">
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item onHoverDropdown" href="#">Make Action</a></li>
+                                    <li><a class="dropdown-item onHoverDropdown" href="#">Disapprove</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="payment" class="container pt-4" style="border: 1px solid red; height: 1200px;">
+        <h1 class="center">Payment</h1>
+    
+        <!-- Trip Info Table -->
+        <table style="margin-bottom: 30px;">
+            <tr>
+                <th class="center" colspan="4">Trip Info</th>
+            </tr>
+            <tr>
+                <th style="width: 20%;">Route</th>
+                <th style="width: 20%;">Trip Date</th>
+                <th style="width: 20%;">Plate Number</th>
+                <th style="width: 20%;">Driver Name</th>
+            </tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+        </table>
+    
+        <!-- Second Trip Info Table 
+        <table style="margin-bottom: 30px;">
+            <tr>
+                <th class="center" colspan="4">Trip Info</th>
+            </tr>
+            <tr>
+                <th style="width: 20%;">Route</th>
+                <th style="width: 20%;">Trip Date</th>
+                <th style="width: 20%;">Plate Number</th>
+                <th style="width: 20%;">Driver Name</th>
+            </tr>
+            <tr><td>Bocaue</td><td>11-2-25</td><td>ABC123</td><td>Jeicer</td></tr>
+             Repeat rows as needed -->
+        
+    
+            <!-- Payment Details Table -->
+            <table>
+                <tr><th class="center" colspan="4">Payment Details</th></tr>
+                <tr>
+                    <td>Total Amount</td>
+                    <td colspan="3"><input type="number" id="total" oninput="calculateBalance()" placeholder="Enter total amount"></td>
+                </tr>
+                <tr>
+                    <td>Amount Paid</td>
+                    <td colspan="3"><input type="number" id="paid" oninput="calculateBalance()" placeholder="Enter paid amount"></td>
+                </tr>
+                <tr>
+                    <td>Remaining Balance</td>
+                    <td colspan="3"><input type="number" id="balance" readonly></td>
+                </tr>
+                <tr>
+                    <td>Payment Method</td>
+                    <td colspan="3">
+                        <select>
+                            <option>Cash</option>
+                            <option>GCash</option>
+                            <option>Bank Transfer</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Payment Date</td>
+                    <td colspan="3"><input type="date"></td>
+                </tr>
+                <tr>
+                    <td>Receipt/Reference No.</td>
+                    <td colspan="3"><input type="text" placeholder="Enter receipt or reference number"></td>
+                </tr>
+                <!-- Status and Action Table -->
+                <table style="margin-top: 30px;">
+                    <tr>
+                    <th class="center" colspan="4">Status</th>
+                    </tr>
+                    <tr>
+                    <td>Payment Status</td>
+                    <td colspan="3">
+                        <select>
+                        <option>Pending</option>
+                        <option>Partially Paid</option>
+                        <option>Paid</option>
+                        </select>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>Remarks</td>
+                    <td colspan="3">
+                        <input type="text" placeholder="Enter optional note">
+                    </td>
+                    </tr>
+                    <tr>
+                    <th class="center" colspan="4">Action (Admin Only)</th>
+                    </tr>
+                    <tr>
+                    <td colspan="4" style="text-align: center;">
+                        <button>Approve Payment</button>
+                        <button>Mark as Paid</button>
+                        <button>Print Receipt</button>
+                        <button>Send Invoice</button>
+                    </td>
+                    </tr>
+
+    
+            </table>
+        
+            <script>
+                function calculateBalance() {
+                    const total = parseFloat(document.getElementById("total").value) || 0;
+                    const paid = parseFloat(document.getElementById("paid").value) || 0;
+                    const balance = total - paid;
+                    document.getElementById("balance").value = balance.toFixed(2);
+                }
+            </script>
+    </div>
+
+    <div id="homepage" class="container pt-4" style="border: 1px solid blue; height: 1200px;">
+        <h1 class="center">Receipt</h1>
+
+        <title>Payment Details</title>
+
+    </head>
+    <body>
+    
+        <form id="paymentForm">
+            <table>
+                <tr><th class="center" colspan="4">Payment Details</th></tr>
+                <tr>
+                    <td>Total Amount</td>
+                    <td colspan="3"><input type="number" id="total" oninput="calculateBalance()" placeholder="Enter total amount"></td>
+                </tr>
+                <tr>
+                    <td>Amount Paid</td>
+                    <td colspan="3"><input type="number" id="paid" oninput="calculateBalance()" placeholder="Enter paid amount"></td>
+                </tr>
+                <tr>
+                    <td>Remaining Balance</td>
+                    <td colspan="3"><input type="number" id="balance" readonly></td>
+                </tr>
+                <tr>
+                    <td>Payment Method</td>
+                    <td colspan="3">
+                        <select id="method">
+                            <option>Cash</option>
+                            <option>GCash</option>
+                            <option>Bank Transfer</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Payment Date</td>
+                    <td colspan="3"><input type="date" id="date"></td>
+                </tr>
+                <tr>
+                    <td>Receipt/Reference No.</td>
+                    <td colspan="3"><input type="text" id="ref" placeholder="Enter receipt or reference number"></td>
+                </tr>
+            </table>
+    
+            <table style="margin-top: 30px;">
+                <tr><th class="center" colspan="4">Status</th></tr>
+                <tr>
+                    <td>Payment Status</td>
+                    <td colspan="3">
+                        <select id="status">
+                            <option>Pending</option>
+                            <option>Partially Paid</option>
+                            <option>Paid</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Remarks</td>
+                    <td colspan="3"><input type="text" id="remarks" placeholder="Enter optional note"></td>
+                </tr>
+                <tr><th class="center" colspan="4">Action (Admin Only)</th></tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        <button type="button">Approve Payment</button>
+                        <button type="button">Mark as Paid</button>
+                        <button type="button" onclick="generateReceipt()">Print Receipt</button>
+                        <button type="button">Send Invoice</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    
+        <!-- Invoice Receipt Section -->
+        <div class="receipt" id="receipt">
+            <h3>Payment Receipt</h3>
+            <p><strong>Receipt No.:</strong> <span id="r_ref"></span></p>
+            <p><strong>Date:</strong> <span id="r_date"></span></p>
+            <p><strong>Total Amount:</strong> ₱<span id="r_total"></span></p>
+            <p><strong>Amount Paid:</strong> ₱<span id="r_paid"></span></p>
+            <p><strong>Balance:</strong> ₱<span id="r_balance"></span></p>
+            <p><strong>Method:</strong> <span id="r_method"></span></p>
+            <p><strong>Status:</strong> <span id="r_status"></span></p>
+            <p><strong>Remarks:</strong> <span id="r_remarks"></span></p>
+        </div>
+    
+        <script>
+
+            function calculateBalance() {
+                const total = parseFloat(document.getElementById("total").value) || 0;
+                const paid = parseFloat(document.getElementById("paid").value) || 0;
+                const balance = total - paid;
+                document.getElementById("balance").value = balance.toFixed(2);
+            }
+        
+    
+            function generateReceipt() {
+                // Get values
+                const total = document.getElementById("total").value;
+                const paid = document.getElementById("paid").value;
+                const balance = document.getElementById("balance").value;
+                const method = document.getElementById("method").value;
+                const date = document.getElementById("date").value;
+                const ref = document.getElementById("ref").value;
+                const status = document.getElementById("status").value;
+                const remarks = document.getElementById("remarks").value;
+    
+                // Fill in receipt
+                document.getElementById("r_total").textContent = parseFloat(total).toFixed(2);
+                document.getElementById("r_paid").textContent = parseFloat(paid).toFixed(2);
+                document.getElementById("r_balance").textContent = parseFloat(balance).toFixed(2);
+                document.getElementById("r_method").textContent = method;
+                document.getElementById("r_date").textContent = date;
+                document.getElementById("r_ref").textContent = ref;
+                document.getElementById("r_status").textContent = status;
+                document.getElementById("r_remarks").textContent = remarks;
+    
+                // Show receipt
+                document.getElementById("receipt").style.display = 'block';
+    
+                // Optional: trigger print (or user can screenshot)
+                // window.print();
+            }
+        </script>
+    </div>
+
+    
+    
+    {% endblock %}
+</body>
+</html>
